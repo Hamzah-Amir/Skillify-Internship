@@ -79,6 +79,8 @@ body {
     border: none;
     border-radius: 10px;
     cursor: pointer;
+    width: 150px;
+    font-size: 16px;
 }
 
 .btn a{
@@ -87,7 +89,7 @@ body {
 }
 
 .btn :hover {
-    
+    font-weight: 900;
 }
 
 .right-section img {
