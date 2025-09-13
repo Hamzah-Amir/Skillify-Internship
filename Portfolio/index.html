@@ -12,7 +12,12 @@
     <header>
         <nav class="navbar">
             <div class="logo"><a href="/"> Hamza Amir</div></a>
-            <ul>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-menu" id="nav-menu">
                 <a href="#home">
                     <li>Home</li>
                 </a>
@@ -57,14 +62,20 @@
         <section id="projects">
             <h1>MY Projects</h1>
             <div class="project-cards">
-                <div class="card">
-                    <h1>To be added Later</h1>
+                <div class="card" data-image="https://via.placeholder.com/400x300/4a90e2/ffffff?text=Project+1">
+                    <img src="https://via.placeholder.com/300x200/4a90e2/ffffff?text=Project+1" alt="Project 1" class="project-image">
+                    <h3>Project 1</h3>
+                    <p>Description of project 1</p>
                 </div>
-                <div class="card">
-                    <h1>To be added Later</h1>
+                <div class="card" data-image="https://via.placeholder.com/400x300/7b68ee/ffffff?text=Project+2">
+                    <img src="https://via.placeholder.com/300x200/7b68ee/ffffff?text=Project+2" alt="Project 2" class="project-image">
+                    <h3>Project 2</h3>
+                    <p>Description of project 2</p>
                 </div>
-                <div class="card">
-                    <h1>To be added Later</h1>
+                <div class="card" data-image="https://via.placeholder.com/400x300/20b2aa/ffffff?text=Project+3">
+                    <img src="https://via.placeholder.com/300x200/20b2aa/ffffff?text=Project+3" alt="Project 3" class="project-image">
+                    <h3>Project 3</h3>
+                    <p>Description of project 3</p>
                 </div>
             </div>
         </section>
@@ -90,6 +101,23 @@
             Hamza Portfolio | &copy; All Rights Reserved
         </div>
     </footer>
+    
+    <!-- Back to Top Button -->
+    <button id="backToTop" class="back-to-top" title="Back to Top">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 4L12 20M12 4L6 10M12 4L18 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </button>
+    
+    <!-- Lightbox Modal -->
+    <div id="lightbox" class="lightbox">
+        <div class="lightbox-content">
+            <span class="close-lightbox">&times;</span>
+            <img id="lightbox-image" src="" alt="">
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
 </body>
 
 </html>
