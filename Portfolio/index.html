@@ -61,22 +61,14 @@
         <div class="seperation"></div>
         <section id="projects">
             <h1>MY Projects</h1>
-            <div class="project-cards">
-                <div class="card" data-image="https://via.placeholder.com/400x300/4a90e2/ffffff?text=Project+1">
-                    <img src="https://via.placeholder.com/300x200/4a90e2/ffffff?text=Project+1" alt="Project 1" class="project-image">
-                    <h3>Project 1</h3>
-                    <p>Description of project 1</p>
-                </div>
-                <div class="card" data-image="https://via.placeholder.com/400x300/7b68ee/ffffff?text=Project+2">
-                    <img src="https://via.placeholder.com/300x200/7b68ee/ffffff?text=Project+2" alt="Project 2" class="project-image">
-                    <h3>Project 2</h3>
-                    <p>Description of project 2</p>
-                </div>
-                <div class="card" data-image="https://via.placeholder.com/400x300/20b2aa/ffffff?text=Project+3">
-                    <img src="https://via.placeholder.com/300x200/20b2aa/ffffff?text=Project+3" alt="Project 3" class="project-image">
-                    <h3>Project 3</h3>
-                    <p>Description of project 3</p>
-                </div>
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="websites">Websites</button>
+                <button class="filter-btn" data-filter="designs">Designs</button>
+                <button class="filter-btn" data-filter="mini-apps">Mini Apps</button>
+            </div>
+            <div class="project-cards" id="project-cards">
+                <!-- Project cards will be dynamically generated here -->
             </div>
         </section>
     </main>

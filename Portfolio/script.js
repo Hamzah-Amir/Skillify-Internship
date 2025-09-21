@@ -202,3 +202,195 @@ document.addEventListener('DOMContentLoaded', function() {
         observer.observe(el);
     });
 });
+
+// Dynamic Projects Section with Filtering
+document.addEventListener('DOMContentLoaded', function() {
+    // Project data array
+    const projects = [
+        {
+            title: "E-Commerce Website",
+            description: "A full-stack e-commerce platform built with React and Node.js featuring user authentication, payment integration, and admin dashboard.",
+            image: "https://via.placeholder.com/400x300/4a90e2/ffffff?text=E-Commerce+Website",
+            largeImage: "https://via.placeholder.com/800x600/4a90e2/ffffff?text=E-Commerce+Website",
+            category: "websites",
+            liveLink: "https://example.com",
+            githubLink: "https://github.com/example",
+            technologies: ["React", "Node.js", "MongoDB", "Stripe API"]
+        },
+        {
+            title: "Portfolio Design",
+            description: "Modern and responsive portfolio design with smooth animations and interactive elements using CSS3 and JavaScript.",
+            image: "https://via.placeholder.com/400x300/7b68ee/ffffff?text=Portfolio+Design",
+            largeImage: "https://via.placeholder.com/800x600/7b68ee/ffffff?text=Portfolio+Design",
+            category: "designs",
+            liveLink: "https://example.com",
+            githubLink: "https://github.com/example",
+            technologies: ["HTML5", "CSS3", "JavaScript", "GSAP"]
+        },
+        {
+            title: "Task Manager App",
+            description: "A productivity app for managing daily tasks with drag-and-drop functionality, due dates, and team collaboration features.",
+            image: "https://via.placeholder.com/400x300/20b2aa/ffffff?text=Task+Manager",
+            largeImage: "https://via.placeholder.com/800x600/20b2aa/ffffff?text=Task+Manager",
+            category: "mini-apps",
+            liveLink: "https://example.com",
+            githubLink: "https://github.com/example",
+            technologies: ["Vue.js", "Firebase", "CSS3"]
+        },
+        {
+            title: "Restaurant Website",
+            description: "Beautiful restaurant website with online menu, reservation system, and contact form integration.",
+            image: "https://via.placeholder.com/400x300/ff6b6b/ffffff?text=Restaurant+Website",
+            largeImage: "https://via.placeholder.com/800x600/ff6b6b/ffffff?text=Restaurant+Website",
+            category: "websites",
+            liveLink: "https://example.com",
+            githubLink: "https://github.com/example",
+            technologies: ["HTML5", "CSS3", "JavaScript", "PHP"]
+        },
+        {
+            title: "UI/UX Design System",
+            description: "Comprehensive design system with reusable components, color palettes, and typography guidelines for consistent user experience.",
+            image: "https://via.placeholder.com/400x300/ffa726/ffffff?text=UI+UX+Design",
+            largeImage: "https://via.placeholder.com/800x600/ffa726/ffffff?text=UI+UX+Design",
+            category: "designs",
+            liveLink: "https://example.com",
+            githubLink: "https://github.com/example",
+            technologies: ["Figma", "Adobe XD", "Sketch"]
+        },
+        {
+            title: "Weather App",
+            description: "Real-time weather application with location-based forecasts, interactive maps, and weather alerts.",
+            image: "https://via.placeholder.com/400x300/26c6da/ffffff?text=Weather+App",
+            largeImage: "https://via.placeholder.com/800x600/26c6da/ffffff?text=Weather+App",
+            category: "mini-apps",
+            liveLink: "https://example.com",
+            githubLink: "https://github.com/example",
+            technologies: ["React", "OpenWeather API", "CSS3"]
+        },
+        {
+            title: "Blog Platform",
+            description: "Content management system for bloggers with rich text editor, comment system, and SEO optimization.",
+            image: "https://via.placeholder.com/400x300/8e24aa/ffffff?text=Blog+Platform",
+            largeImage: "https://via.placeholder.com/800x600/8e24aa/ffffff?text=Blog+Platform",
+            category: "websites",
+            liveLink: "https://example.com",
+            githubLink: "https://github.com/example",
+            technologies: ["Next.js", "Prisma", "PostgreSQL"]
+        },
+        {
+            title: "Mobile App Design",
+            description: "Fitness tracking mobile app design with intuitive user interface and engaging user experience.",
+            image: "https://via.placeholder.com/400x300/43a047/ffffff?text=Mobile+App+Design",
+            largeImage: "https://via.placeholder.com/800x600/43a047/ffffff?text=Mobile+App+Design",
+            category: "designs",
+            liveLink: "https://example.com",
+            githubLink: "https://github.com/example",
+            technologies: ["Figma", "Principle", "Adobe After Effects"]
+        }
+    ];
+
+    const projectCardsContainer = document.getElementById('project-cards');
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    let currentFilter = 'all';
+
+    // Function to create project card HTML
+    function createProjectCard(project) {
+        return `
+            <div class="card" data-category="${project.category}" data-image="${project.largeImage}">
+                <img src="${project.image}" alt="${project.title}" class="project-image">
+                <div class="project-overlay">
+                    <h4>${project.title}</h4>
+                    <p>${project.description}</p>
+                    <div class="project-links">
+                        <a href="${project.liveLink}" target="_blank" class="project-link">Live Demo</a>
+                        <a href="${project.githubLink}" target="_blank" class="project-link">GitHub</a>
+                    </div>
+                </div>
+                <h3>${project.title}</h3>
+                <p>${project.description}</p>
+            </div>
+        `;
+    }
+
+    // Function to render projects
+    function renderProjects(filter = 'all') {
+        const filteredProjects = filter === 'all' ? projects : projects.filter(project => project.category === filter);
+        
+        projectCardsContainer.innerHTML = filteredProjects.map(project => createProjectCard(project)).join('');
+        
+        // Re-initialize lightbox functionality for new cards
+        initializeLightbox();
+        
+        // Re-initialize scroll animation for new cards
+        initializeScrollAnimation();
+    }
+
+    // Function to initialize lightbox functionality
+    function initializeLightbox() {
+        const projectImages = document.querySelectorAll('.project-image');
+        
+        projectImages.forEach(image => {
+            // Remove existing event listeners to prevent duplicates
+            image.removeEventListener('click', handleImageClick);
+            image.addEventListener('click', handleImageClick);
+        });
+    }
+
+    // Function to handle image click for lightbox
+    function handleImageClick(event) {
+        const card = event.target.closest('.card');
+        const largeImageSrc = card.getAttribute('data-image');
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImage = document.getElementById('lightbox-image');
+        
+        lightboxImage.src = largeImageSrc;
+        lightboxImage.alt = event.target.alt;
+        lightbox.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+    }
+
+    // Function to initialize scroll animation for new cards
+    function initializeScrollAnimation() {
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+        
+        const newCards = document.querySelectorAll('.card');
+        newCards.forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(card);
+        });
+    }
+
+    // Filter button event listeners
+    filterButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            // Remove active class from all buttons
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            
+            // Add active class to clicked button
+            this.classList.add('active');
+            
+            // Get filter value
+            currentFilter = this.getAttribute('data-filter');
+            
+            // Render filtered projects
+            renderProjects(currentFilter);
+        });
+    });
+
+    // Initial render
+    renderProjects();
+});
