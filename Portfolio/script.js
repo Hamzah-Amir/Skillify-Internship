@@ -1,3 +1,14 @@
+// Loading Screen
+window.addEventListener('load', function() {
+    const loadingScreen = document.getElementById('loadingScreen');
+    setTimeout(() => {
+        loadingScreen.classList.add('fade-out');
+        setTimeout(() => {
+            loadingScreen.style.display = 'none';
+        }, 500);
+    }, 1500);
+});
+
 // Mobile Navigation Menu Toggle
 document.addEventListener('DOMContentLoaded', function() {
     const hamburger = document.getElementById('hamburger');
@@ -177,30 +188,48 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// Additional Enhancement: Scroll Animation for Elements
+// Enhanced Scroll Animation and Navbar Effects
 document.addEventListener('DOMContentLoaded', function() {
+    // Navbar scroll effect
+    const navbar = document.querySelector('.navbar');
+    
+    window.addEventListener('scroll', function() {
+        if (window.scrollY > 50) {
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
+        }
+    });
+
+    // Enhanced scroll reveal animation
     const observerOptions = {
         threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
+        rootMargin: '0px 0px -100px 0px'
     };
     
     const observer = new IntersectionObserver(function(entries) {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
+                entry.target.classList.add('revealed');
             }
         });
     }, observerOptions);
     
-    // Observe elements for scroll animation
-    const animatedElements = document.querySelectorAll('.card, .about div, .hero');
-    animatedElements.forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(30px)';
-        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-        observer.observe(el);
+    // Observe sections for scroll animation
+    const sectionsToReveal = document.querySelectorAll('.about, #projects, footer');
+    sectionsToReveal.forEach(section => {
+        observer.observe(section);
     });
+
+    // Parallax effect for hero image
+    const heroImage = document.querySelector('.right-section img');
+    if (heroImage) {
+        window.addEventListener('scroll', function() {
+            const scrolled = window.pageYOffset;
+            const parallax = scrolled * 0.5;
+            heroImage.style.transform = `translateX(10vw) scale(1) translateY(${parallax}px)`;
+        });
+    }
 });
 
 // Dynamic Projects Section with Filtering
